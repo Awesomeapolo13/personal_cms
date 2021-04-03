@@ -3,12 +3,13 @@ namespace App;
 
 use Illuminate\Support\Facades\App;
 use App\View\View;
+use App\Exception\BadMethodCallException;
 
 class Controller
 {
     public function index()
     {
-        $books = \App\Model\Book::all();
+        $books = \App\Models\Book::all();
         return new View('view.index', ['title' => 'Home', 'books' => $books]);
     }
 
@@ -24,6 +25,13 @@ class Controller
 
     public function getBooks()
     {
-        return \App\Model\Book::all();
+        return \App\Models\Book::all();
+    }
+
+    public function __call($method, $parameters)
+    {
+        throw new BadMethodCallException(sprintf(
+            'Method %s::%s does not exist.', static::class, $method
+        ));
     }
 }
