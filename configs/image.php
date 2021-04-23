@@ -1,8 +1,8 @@
 <?php
 return [
     'upload_path' => [
-        'user' => '/public/img/user/',
-        'article' => '/public/img/article/',
+        'user' => '/public/assets/img/user/',
+        'article' => '/public/assets/img/article/',
     ],
     'max_size' => 2000000,
 ];

@@ -31,6 +31,16 @@ function includeView(string $templateName, $data = null)
 }
 
 /**
+ * Функция подключения изображений и других файлов, размещенных в папке assets каталога public
+ * @param $pathToImage - путь до изображения отделяемый сиволом '.'
+ * @return string - строка пути до изображения
+ */
+function asset($pathToImage): string
+{
+    return $_SERVER['DOCUMENT_ROOT'] . '/public/assets/' . implode(DIRECTORY_SEPARATOR, explode('.', $pathToImage));
+}
+
+/**
  * Функция получения url-парамметров
  * @param string $url - адрес url
  * @param null $key - конкретный ключ параметра из url, который необходимо вернуть

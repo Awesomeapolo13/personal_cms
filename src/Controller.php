@@ -28,6 +28,11 @@ class Controller
         return \App\Models\Book::all();
     }
 
+    public function articles()
+    {
+        return new View('view.articles.index', []);
+    }
+
     public function __call($method, $parameters)
     {
         throw new BadMethodCallException(sprintf(

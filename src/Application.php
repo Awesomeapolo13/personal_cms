@@ -51,6 +51,9 @@ class Application
         $capsule = new Capsule;
 
         Config::getInstance()->setConfig('db.php');
+        Config::getInstance()->setConfig('menu.php');
+        Config::getInstance()->setConfig('image.php');
+        Config::getInstance()->setConfig('pagination.php');
 
         $capsule->addConnection([
             'driver'    => Config::getInstance()->get('db.driver'),
