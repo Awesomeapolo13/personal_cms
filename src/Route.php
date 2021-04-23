@@ -41,6 +41,8 @@ class Route
         return $this->method === $method && preg_match('/^' . str_replace(['*', '/'], ['\w+', '\/'], $this->getPath()) . '$/', $uri);
     }
 
+
+
     public function run($uri)
     {
 

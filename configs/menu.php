@@ -5,11 +5,11 @@ return [
             'title' => 'Главная',
             'path' => '/',
         ],
-        [
-            'title' => 'Категории',
-            'path' => '/',
-            'type' => 'select',
-        ],
+//        [
+//            'title' => 'Категории',
+//            'path' => '/',
+//            'type' => 'select',
+//        ],
     ],
     'user' => [
         [
@@ -23,13 +23,13 @@ return [
             'isAuth' => false,
         ],
         [
-            'title' => 'Выход',
-            'path' => '/logout',
+            'title' => 'Профиль',
+            'path' => '/account',
             'isAuth' => true,
         ],
         [
-            'title' => 'Профиль',
-            'path' => '/account',
+            'title' => 'Выход',
+            'path' => '/logout',
             'isAuth' => true,
         ],
     ],

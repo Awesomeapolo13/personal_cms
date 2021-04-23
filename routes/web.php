@@ -1,6 +1,17 @@
 <?php
 
-$router->get('/', [App\Controller::class, 'index']);
+//$router->get('/', [App\Controller::class, 'index']);
+$router->get('/', [App\Controllers\Article::class, 'index']);
+
+$router->get('/article/*', [App\Controllers\Article::class, 'article']);
+//Авторизация
+$router->get('/login', [App\Controllers\Auth\Login::class, 'index']);
+//Регистрация
+$router->get('/register', [App\Controllers\Auth\Register::class, 'index']);
+//Профиль
+$router->get('/account', [App\Controllers\Account\Index::class, 'index']);
+
+$router->get('/articles', [App\Controller::class, 'articles']);
 
 $router->get('/products/*/', function () {
     return new App\View\View('view.products', ['title' => 'Products']);
@@ -25,3 +36,5 @@ $router->post('/posts/', function () {
 $router->post('/products/*/', function () {
     return new App\View\View('view.products', ['title' => 'Products']);
 });
+
+$router->resource('/admin/articles', \App\ResourceController::class);
