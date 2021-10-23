@@ -10,12 +10,22 @@ $router->get('/login', [App\Controllers\Auth\Login::class, 'index']);
 $router->get('/register', [App\Controllers\Auth\Register::class, 'index']);
 //Профиль
 $router->get('/account', [App\Controllers\Account\Index::class, 'index']);
+// статьи
+$router->get('/articles', [App\Controller::class, 'articles']);
+
 
 //Админский раздел
 $router->get('/admin', [App\Controllers\Admin\AdminController::class, 'index']);
-
-$router->get('/articles', [App\Controller::class, 'articles']);
-
+// Управление статьями
+$router->get('/admin/articles', [App\Controllers\Admin\ArticleController::class, 'index']);
+// Управление комментариями
+$router->get('/admin/comments', [App\Controllers\Admin\CommentController::class, 'index']);
+// Управление статичными страницами
+$router->get('/admin/pages', [App\Controllers\Admin\PageController::class, 'index']);
+// Управление подписками
+$router->get('/admin/subscribers', [App\Controllers\Admin\SubscribeController::class, 'index']);
+// Управление подписками
+$router->get('/admin/users', [App\Controllers\Admin\UserController::class, 'index']);
 
 
 $router->get('/products/*/', function () {
@@ -41,5 +51,3 @@ $router->post('/posts/', function () {
 $router->post('/products/*/', function () {
     return new App\View\View('view.products', ['title' => 'Products']);
 });
-
-$router->resource('/admin/articles', \App\ResourceController::class);

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controllers\Admin;
-
 
 use App\View\View;
 

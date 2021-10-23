@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Exception\HttpException;
 use App\Exception\NotFoundException;
 
 class Router
