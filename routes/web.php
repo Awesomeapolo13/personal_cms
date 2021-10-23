@@ -11,7 +11,12 @@ $router->get('/register', [App\Controllers\Auth\Register::class, 'index']);
 //Профиль
 $router->get('/account', [App\Controllers\Account\Index::class, 'index']);
 
+//Админский раздел
+$router->get('/admin', [App\Controllers\Admin\AdminController::class, 'index']);
+
 $router->get('/articles', [App\Controller::class, 'articles']);
+
+
 
 $router->get('/products/*/', function () {
     return new App\View\View('view.products', ['title' => 'Products']);

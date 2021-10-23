@@ -28,7 +28,7 @@ includeView('masthead');
 
 
         <!--        Paginator-->
-        <?php if (count(json_decode($this->data['articlesList'])) > \App\Config::getInstance()->get('pagination.limit')):
+        <?php if (count(json_decode($this->data['articlesList'], true)) > \App\Config::getInstance()->get('pagination.limit')):
             includeView('paginator');
         endif;
         includeView('subscription', ['isAuth' => !empty($isAuth) ?? null]); ?>

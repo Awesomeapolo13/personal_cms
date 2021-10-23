@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <!--    Подключение базовых частей хедера-->
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/view/layout/base/header.php' ?>
+<?php
+includeView('base/header');
+?>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-    <title>Personal CMS Blog</title>
+    <title>Personal CMS</title>
+
     <link rel="icon" type="image/x-icon" href="/public/assets/img/favicon.ico"/>
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
