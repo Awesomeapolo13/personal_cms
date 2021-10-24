@@ -1,9 +1,13 @@
 <?php
 
-
 namespace App;
 
-
+/**
+ * Ресурсный контроллер
+ *
+ * Предоставляет методы для реализации CRUD функционала
+ *
+ */
 class ResourceController extends Controller
 {
     /**

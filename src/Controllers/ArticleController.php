@@ -8,7 +8,7 @@ use App\Controller;
 use \App\Models\Article as ArticleModel;
 use App\View\View;
 
-class Article extends Controller
+class ArticleController extends Controller
 {
     public function index()
     {

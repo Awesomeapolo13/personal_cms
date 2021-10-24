@@ -1,15 +1,15 @@
 <?php
 
 //$router->get('/', [App\Controller::class, 'index']);
-$router->get('/', [App\Controllers\Article::class, 'index']);
+$router->get('/', [App\Controllers\ArticleController::class, 'index']);
 
-$router->get('/article/*', [App\Controllers\Article::class, 'article']);
+$router->get('/article/*', [App\Controllers\ArticleController::class, 'article']);
 //Авторизация
-$router->get('/login', [App\Controllers\Auth\Login::class, 'index']);
+$router->get('/login', [App\Controllers\Auth\SecurityController::class, 'login']);
 //Регистрация
-$router->get('/register', [App\Controllers\Auth\Register::class, 'index']);
+$router->get('/register', [App\Controllers\Auth\SecurityController::class, 'register']);
 //Профиль
-$router->get('/account', [App\Controllers\Account\Index::class, 'index']);
+$router->get('/account', [App\Controllers\Account\IndexController::class, 'index']);
 // статьи
 $router->get('/articles', [App\Controller::class, 'articles']);
 

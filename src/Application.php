@@ -15,6 +15,10 @@ class Application
         $this->initialize();
     }
 
+    /**
+     * Запускает работу приложения
+     *
+     */
     public function run()
     {
         try {

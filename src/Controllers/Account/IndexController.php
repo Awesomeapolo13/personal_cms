@@ -6,7 +6,7 @@ namespace App\Controllers\Account;
 
 use App\View\View;
 
-class Index extends \App\Controller
+class IndexController extends \App\Controller
 {
     public function index()
     {

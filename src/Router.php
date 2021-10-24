@@ -4,22 +4,46 @@ namespace App;
 
 use App\Exception\NotFoundException;
 
+/**
+ * Маршрутизатор
+ */
 class Router
 {
+    /**
+     * @var array - массив маршрутов
+     */
     public $routes = [];
 
+    /**
+     * Регистрирует запрос, обрабатываемый методом get
+     *
+     * @param $path
+     * @param $callback
+     */
     public function get($path, $callback)
     {
         $newRoute = new Route('GET', preparePathToFormat($path), $callback);
         $this->routes[$newRoute->getPath()] = $newRoute;
     }
 
+    /**
+     * Регистрирует запрос, обрабатываемый методом post
+     *
+     * @param $path
+     * @param $callback
+     */
     public function post($path, $callback)
     {
         $newRoute = new Route('POST', preparePathToFormat($path), $callback);
         $this->routes[$newRoute->getPath()] = $newRoute;
     }
 
+    /**
+     * Регистрирует маршруты для всех типов запросов (CRUD)
+     *
+     * @param $path
+     * @param $callback
+     */
     public function resource($path, $callback)
     {
         $newRoutes = [
@@ -35,6 +59,12 @@ class Router
         }
     }
 
+    /**
+     * Проверяет маршрут и запускает его
+     *
+     * @return mixed
+     * @throws NotFoundException
+     */
     public function dispatch()
     {
         $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
