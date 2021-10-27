@@ -5,15 +5,32 @@ namespace App;
 
 class Route
 {
-    private $method;
-    private $path;
+    /**
+     * @var string - имя методв
+     */
+    private string $method;
+
+    /**
+     * @var string - url
+     */
+    private string $path;
+
+    /**
+     * @var callable - коллбек функция, либо массив / строка, содержащий имя контроллера и вызываемый им метод
+     */
     private $callback;
 
-    public function __construct($method, $path, $callback)
+    /**
+     * @var array - прочие параметры пеердаваемые в контроллер
+     */
+    private array $params;
+
+    public function __construct(string $method, string $path, $callback, array $params = [])
     {
         $this->method = $method;
         $this->path = $path;
         $this->callback = $callback;
+        $this->params = $params;
     }
 
     /**
@@ -57,11 +74,14 @@ class Route
     /**
      * Запускает колбек функцию или метод контроллера для обработки маршрута
      *
+     * Первыми параметрами в метод контроллера будут попадать те, что зашифрованы в url.
+     * Затем идут прочие парамтеры пеерданные при регистрации маршрута (Request или его составляющие и пр.)
+     *
      * @param $uri - маршрут
      * @return false|mixed
      */
     public function run($uri)
     {
-        return call_user_func_array($this->prepareCallback($this->callback), extractURLData($uri, $this->getPath()));
+        return call_user_func_array($this->prepareCallback($this->callback), array_merge(extractURLData($uri, $this->getPath()), $this->params));
     }
 }
