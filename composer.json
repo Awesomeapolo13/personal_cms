@@ -15,5 +15,8 @@
         "illuminate/database": "^8.26",
         "twig/twig": "^3.0",
       "ext-json": "*"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.3"
     }
 }

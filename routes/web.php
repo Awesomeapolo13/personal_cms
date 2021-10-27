@@ -1,6 +1,5 @@
 <?php
 
-//$router->get('/', [App\Controller::class, 'index']);
 $router->get('/', [App\Controllers\ArticleController::class, 'index']);
 
 $router->get('/article/*', [App\Controllers\ArticleController::class, 'article']);
