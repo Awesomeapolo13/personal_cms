@@ -1,6 +1,8 @@
 <?php
 
-$router->get('/', [App\Controllers\ArticleController::class, 'index']);
+$router->get('/', [App\Controllers\ArticleController::class, 'index'],
+    ($request->getQuery())['page'] <= 0 ? 1 : ($request->getQuery())['page'] // FixMe если передан номер страница, то берем ее, если нит то отображаем первую
+);
 
 $router->get('/article/*', [App\Controllers\ArticleController::class, 'article']);
 //Авторизация

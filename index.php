@@ -11,13 +11,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 
 $router = new Router();
 // создаем объект запроса, передаем ему необходимые суперглобальные массивы
-$request = new Request(
-    $_GET,
-    $_POST,
-    $_COOKIE,
-    $_FILES,
-    $_SERVER
-);
+$request = Request::createFromGlobals();
 
 // файл с регистрируемыми маршрутами (роутами)
 require_once $_SERVER['DOCUMENT_ROOT'] . '/routes/web.php';

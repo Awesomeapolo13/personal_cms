@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Pagination implements PaginationInterface
 {
-    //ToDo нужно передать в класс модель для которой будет происходить пагинация
+    //ToDo возможно стоит передать в класс модель для которой будет происходить пагинация, внутри модели сделать запрос записей в соотсветствии с номером страницы
+    //ToDO подумать по поводу паттерна мост для отображения пагинации
 
-    //ToDo из модели получить необходимое количество записей (создать запрос в БД), отобразить их на странице
     /**
      * @var Model[] - коллекция моделей по отношению к которым необходима пагинация
      */
-    private array $models;
+    private iterable $models;
 
     /**
      * @var int - страница, которую необходимо отражать
@@ -32,16 +32,15 @@ class Pagination implements PaginationInterface
      * @param int|null $pageNumber
      * @param int|null $count
      */
-    public function __construct(array $models, ?int $pageNumber = null, ?int $count = null)
+    public function __construct(iterable $models, int $pageNumber = 1, ?int $count = null)
     {
-        $this->validatePageNumber($pageNumber);
-        if (empty($models)) {
-            throw new \InvalidArgumentException('Передана пустая коллекция $models');
-        }
+        $count = $count ?? Config::getInstance()->get('pagination.limit');
+
+        $this->validateInputData($pageNumber, $models, $count);
 
         $this->models = $models;
         $this->pageNumber = $pageNumber ?? 1;
-        $this->count = $count ?? Config::getInstance()->get('pagination.limit');
+        $this->count = $count;
     }
 
     /**
@@ -67,19 +66,21 @@ class Pagination implements PaginationInterface
      * Валидирует переданный номер страницы
      *
      * @param int|null $pageNumber - номер страницы
+     * @param iterable $models - коллекция моделей
+     * @param int|null $count - число записей, выводимое на
      * @return void
      */
-    private function validatePageNumber(?int $pageNumber): void
+    private function validateInputData(int $pageNumber, iterable $models, ?int $count = null): void
     {
-        if (!isset($pageNumber)) {
-            return;
+        if (empty($models)) {
+            throw new \InvalidArgumentException('Передана пустая коллекция $models');
         }
 
         if ($pageNumber <= 0) {
             throw new \InvalidArgumentException('Параметр $pageNumber должен быть больше 0. Передан ' . $pageNumber);
         }
 
-        if ($this->pageNumber > ceil(count($this->models) / $this->count)) {
+        if ($pageNumber > ceil($models->count() / $count ?? Config::getInstance()->get('pagination.limit'))) {
             throw new \InvalidArgumentException('Параметр $pageNumber = ' . $pageNumber . ' больше чем общее количество страниц');
         }
     }

@@ -16,9 +16,6 @@ includeView('masthead');
                 <?php if (!empty($this->data['articlesList'])):
                     foreach ($this->data['articlesList'] as $article):
                         includeView('articleItem', $article);
-//                    echo "<pre>";
-//                    var_dump($article['title']);
-//                    echo "</pre>";
                     endforeach;
                 else:
                     includeView('notFoundData');
@@ -28,15 +25,16 @@ includeView('masthead');
 
 
         <!--        Paginator-->
-        <?php if (count(json_decode($this->data['articlesList'], true)) > \App\Config::getInstance()->get('pagination.limit')):
-            includeView('paginator');
+        <?php if ($this->data['fullCount'] > $this->data['limit']):
+            includeView('paginator', [
+                'pagesCount' => $this->data['pagesCount'],
+                'nextPage' => $this->data['nextPage'],
+                'previousPage' => $this->data['previousPage'],
+            ]);
         endif;
         includeView('subscription', ['isAuth' => !empty($isAuth) ?? null]); ?>
-
-
     </section>
 
 <?php
-
 
 includeView('footer');

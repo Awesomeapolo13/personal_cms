@@ -96,3 +96,14 @@ function extractURLData(string $url, string $pattern): array
 
     return $result;
 }
+
+/**
+ * Возвращает ссылку на ресурс сайта
+ *
+ * @param string $pathAfterHostName - url путь после хоста
+ * @return string - ссылка
+ */
+function path(string $pathAfterHostName): string
+{
+    return '/' . $pathAfterHostName;
+}

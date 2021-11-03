@@ -1,15 +1,19 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="<?= path('?page=' . $data['previousPage']) ?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <?php for ($pageNumber = 1; $pageNumber <= $data['pagesCount']; $pageNumber++): ?>
+            <li class="page-item">
+                <a class="page-link" href="<?= path('?page=' . $pageNumber) ?>">
+                    <?= $pageNumber ?>
+                </a>
+            </li>
+        <?php endfor ?>
         <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="<?= path('?page=' . $data['nextPage']) ?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
