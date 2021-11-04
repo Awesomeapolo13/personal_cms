@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Config;
 use App\Controller;
 use \App\Models\Article;
-use App\Pagination;
+use App\Service\Pagination;
 use App\View\View;
 
 class ArticleController extends Controller
@@ -13,21 +13,17 @@ class ArticleController extends Controller
     public function index(int $pageNumber = 1): View
     {
         $articlesList = Article::all();
-        $pagination = (new Pagination($articlesList, $pageNumber))->paginate();
-        $pagesCount = ceil($articlesList->count() / Config::getInstance()->get('pagination.limit'));
-        //ToDO перенести расчеты страниц из контроллера в класс пагинации
-        $nextPage = $pageNumber >= $pagesCount ? $pagesCount : ++$pageNumber;
-        $previousPage = $pageNumber <= 0 ? 1 : --$pageNumber;
-//        dd($pagination);
+        $paginator = new Pagination($articlesList, $pageNumber);
+
         return new View('view.articles.index',
             [
                 'title' => 'Статьи!!!',
-                'articlesList' => $pagination,
+                'articlesList' => $paginator->paginate(),
                 'limit' => Config::getInstance()->get('pagination.limit'),
                 'fullCount' => $articlesList->count(),
-                'pagesCount' => $pagesCount,
-                'nextPage' => $nextPage,
-                'previousPage' => $previousPage,
+                'pagesCount' => $paginator->calculatePagesCount(),
+                'nextPage' => $paginator->calculateNextPage(),
+                'previousPage' => $paginator->calculatePreviousPage(),
             ]);
     }
 
