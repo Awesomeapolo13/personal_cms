@@ -23,11 +23,9 @@ includeView('masthead');
             </div>
         </div>
 
-
         <!--        Paginator-->
-        <?php if ($this->data['fullCount'] > $this->data['limit']):
-            includeView('paginator', ['paginator' => $this->data['paginator']]);
-        endif;
+        <?php
+        $this->data['paginator']->renderPaginator(); // отображаем пагинатор
         includeView('subscription', ['isAuth' => !empty($isAuth) ?? null]); ?>
     </section>
 
