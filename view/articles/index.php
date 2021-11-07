@@ -13,8 +13,8 @@ includeView('masthead');
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
             <div class="row">
-                <?php if (!empty($this->data['articlesList'])):
-                    foreach ($this->data['articlesList'] as $article):
+                <?php if (!empty($this->data['paginator']->paginate())):
+                    foreach ($this->data['paginator']->paginate() as $article):
                         includeView('articleItem', $article);
                     endforeach;
                 else:
@@ -26,11 +26,7 @@ includeView('masthead');
 
         <!--        Paginator-->
         <?php if ($this->data['fullCount'] > $this->data['limit']):
-            includeView('paginator', [
-                'pagesCount' => $this->data['pagesCount'],
-                'nextPage' => $this->data['nextPage'],
-                'previousPage' => $this->data['previousPage'],
-            ]);
+            includeView('paginator', ['paginator' => $this->data['paginator']]);
         endif;
         includeView('subscription', ['isAuth' => !empty($isAuth) ?? null]); ?>
     </section>

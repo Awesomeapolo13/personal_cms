@@ -11,5 +11,5 @@ interface PaginationInterface
      *
      * @return Model[]
      */
-    public function paginate(): array;
+    public function paginate(): iterable;
 }

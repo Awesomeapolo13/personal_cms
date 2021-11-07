@@ -2,10 +2,21 @@
 
 namespace App\View;
 
-class View implements Renderable
+use App\RenderInterface;
+
+/**
+ * Класс отображения страницы
+ */
+class View implements RenderInterface
 {
+    /**
+     * @var string - путь до отображаемой страницы, переданный через .
+     */
     public string $page;
 
+    /**
+     * @var array - именованный массив с данными для отображения на странице
+     */
     public array $data;
 
     public function __construct($page, $data)
@@ -14,7 +25,7 @@ class View implements Renderable
         $this->data = $data;
     }
 
-    public function render()
+    public function render(): void
     {
         $filePath = str_replace('.', '/', $this->page);
         require $_SERVER['DOCUMENT_ROOT'] . '/' . $filePath . '.php';
