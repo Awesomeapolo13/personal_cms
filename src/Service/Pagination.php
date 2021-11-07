@@ -3,13 +3,16 @@
 namespace App\Service;
 
 use App\Models\BaseModel;
+use App\PaginationImplementationInterface;
 use App\PaginationInterface;
 
 /**
  * Класс пагинации
  *
  * Основываясь на переданных модели, количества записей для отображения на странице и номера страницы
- * достает через методы модели необходимые для отображения на этой странице данные
+ * достает, посредством методов модели, необходимые для отображения на этой странице данные.
+ * Способен отобразить конкретный шаблон пагинатора. Отображение реализовано на основании паттерна мост - отображение
+ * вынесено в отдельный класс реализации, реализующий интерфейс App\PaginationImplementationInterface
  */
 class Pagination implements PaginationInterface
 {
@@ -30,20 +33,32 @@ class Pagination implements PaginationInterface
      */
     private int $count;
 
+    /**
+     * @var int - полное количество записей
+     */
+    private int $fullCountRecords;
 
+    /**
+     * @var PaginationImplementationInterface
+     */
+    protected PaginationImplementationInterface $paginatorView;
 
     /**
      * @param BaseModel $model
      * @param int|null $count
+     * @param PaginationImplementationInterface $paginatorView
      * @param int|null $pageNumber
      */
-    public function __construct(BaseModel $model, int $count, int $pageNumber = 1)
+    public function __construct(BaseModel $model, int $count, PaginationImplementationInterface $paginatorView, ?int $pageNumber = 1)
     {
-        $validPageNumber = $this->validateAndPrepareInputData($pageNumber, $model->getFullCount(), $count);
+        $fullCountRecords = $model->getFullCount();
+        $validPageNumber = $this->validateAndPrepareInputData($pageNumber, $fullCountRecords, $count);
 
         $this->model = $model;
         $this->pageNumber = $validPageNumber;
         $this->count =$count;
+        $this->fullCountRecords = $fullCountRecords;
+        $this->paginatorView = $paginatorView;
     }
 
     /**
@@ -87,6 +102,14 @@ class Pagination implements PaginationInterface
         $startPos = $this->pageNumber === 1 ? 0 : $this->count * ($this->pageNumber - 1);
 
         return $this->model->getLimitRecordsFromPosition($startPos, $this->count);
+    }
+
+    /**
+     * Отображает шаблон пагинации
+     */
+    public function renderPaginator()
+    {
+        $this->paginatorView->render('paginator', $this->fullCountRecords, $this->count, $this);
     }
 
     /**

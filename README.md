@@ -17,3 +17,8 @@ $this->data["paramKey"];
 ```injectablephp
 $data['paramKey'];
 ```
+
+###Пагинация
+
+Реализована посредством паттерна мост. Отображение вынесено в отдельный класс реализации, 
+реализующий интерфейс App\PaginationImplementationInterface
