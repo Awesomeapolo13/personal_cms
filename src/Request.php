@@ -52,6 +52,16 @@ class Request
     }
 
     /**
+     * Создает экземпляр Request из суперглобальных массивов
+     *
+     * @return Request
+     */
+    public static function createFromGlobals(): Request
+    {
+        return new static($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
+    }
+
+    /**
      * @return array
      */
     public function getQuery(): array

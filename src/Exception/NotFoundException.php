@@ -1,9 +1,9 @@
 <?php
 namespace App\Exception;
 
-use App\View\Renderable;
+use App\RenderInterface;
 
-class NotFoundException extends HttpException implements Renderable
+class NotFoundException extends HttpException implements RenderInterface
 {
     public function render()
     {

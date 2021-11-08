@@ -1,4 +1,4 @@
 <?php
 return [
-    'limit' => 20,
+    'limit' => 9,
 ];

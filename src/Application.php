@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\View\Renderable;
+use App\RenderInterface;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Application
@@ -23,7 +23,7 @@ class Application
     {
         try {
             $controller = $this->router->dispatch();
-            if ($controller instanceof Renderable) {
+            if ($controller instanceof RenderInterface) {
                 $controller->render();
             } else {
                 return $controller;
@@ -39,7 +39,7 @@ class Application
      */
     public function renderException(\Exception $exception)
     {
-        if ($exception instanceof Renderable) {
+        if ($exception instanceof RenderInterface) {
             $exception->render();
         } else {
             $exception->getCode() !== 0 ? $exceptionCode = $exception->getCode() : $exceptionCode = 500;

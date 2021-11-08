@@ -3,14 +3,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Article extends Model
+/**
+ *  Класс модели статьи
+ */
+class Article extends BaseModel
 {
+    /**
+     * @var string - имя таблицы, к которой относится эта модель
+     */
     protected $table = 'articles';
 
+    /**
+     * @var string[] - масиив изменяемых столбцов
+     */
     protected $fillable = [
         'title',
         'body',

@@ -13,12 +13,9 @@ includeView('masthead');
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
             <div class="row">
-                <?php if (!empty($this->data['articlesList'])):
-                    foreach ($this->data['articlesList'] as $article):
+                <?php if (!empty($this->data['paginator']->paginate())):
+                    foreach ($this->data['paginator']->paginate() as $article):
                         includeView('articleItem', $article);
-//                    echo "<pre>";
-//                    var_dump($article['title']);
-//                    echo "</pre>";
                     endforeach;
                 else:
                     includeView('notFoundData');
@@ -26,17 +23,12 @@ includeView('masthead');
             </div>
         </div>
 
-
         <!--        Paginator-->
-        <?php if (count(json_decode($this->data['articlesList'], true)) > \App\Config::getInstance()->get('pagination.limit')):
-            includeView('paginator');
-        endif;
+        <?php
+        $this->data['paginator']->renderPaginator(); // отображаем пагинатор
         includeView('subscription', ['isAuth' => !empty($isAuth) ?? null]); ?>
-
-
     </section>
 
 <?php
-
 
 includeView('footer');
