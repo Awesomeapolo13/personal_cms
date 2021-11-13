@@ -28,7 +28,6 @@ final class Config
         return array_get($this->configs, $config, $default);
     }
 
-
     /** @var Config */
     private static $instance;
 
