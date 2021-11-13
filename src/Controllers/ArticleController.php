@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Config;
 use App\Controller;
 use App\Models\Article;
+use App\PaginationImplementationInterface;
 use App\Request;
 use App\Service\Pagination;
 use App\View\PaginationView;
@@ -16,15 +17,17 @@ class ArticleController extends Controller
      * Отображает главную страницу сайта
      *
      * @param Request $request - класс запроса переданного на эту страницу
+     * @param Article $article
+     * @param PaginationImplementationInterface $paginationView
      * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request, Article $article, PaginationImplementationInterface $paginationView): View
     {
         $pageNumber = empty(($request->getQuery())['page']) ?: ($request->getQuery())['page'];
         $paginator = new Pagination(
-            new Article(),
+            $article,
             Config::getInstance()->get('pagination.limit'),
-            new PaginationView(),
+            $paginationView,
             $pageNumber
         );
 

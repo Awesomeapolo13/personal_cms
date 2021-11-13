@@ -1,7 +1,8 @@
 <?php
 
-
 namespace App;
+
+use \DI\ContainerBuilder;
 
 class Route
 {
@@ -34,6 +35,16 @@ class Route
     }
 
     /**
+     * Возвращает путь url
+     *
+     * @return string - url
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
      * Подготавливает колбек функцию для ее вызова, извлекает параметры из url
      *
      * @param $callback - колбек функция
@@ -54,11 +65,6 @@ class Route
         return $callback;
     }
 
-    public function getPath()
-    {
-        return $this->path;
-    }
-
     /**
      * Валидация пути маршрута
      *
@@ -75,13 +81,18 @@ class Route
      * Запускает колбек функцию или метод контроллера для обработки маршрута
      *
      * Первыми параметрами в метод контроллера будут попадать те, что зашифрованы в url.
-     * Затем идут прочие парамтеры пеерданные при регистрации маршрута (Request или его составляющие и пр.)
+     * Затем идут прочие параметры переданные при регистрации маршрута (Request или его составляющие и пр.)
      *
      * @param $uri - маршрут
      * @return false|mixed
+     * @throws \Exception
      */
     public function run($uri)
     {
-        return call_user_func_array($this->prepareCallback($this->callback), array_merge(extractURLData($uri, $this->getPath()), $this->params));
+        $containerBuilder = new ContainerBuilder();
+        $containerBuilder->addDefinitions($_SERVER['DOCUMENT_ROOT'] . "/configs/diConfig.php");
+        $container = $containerBuilder->build();
+
+        return $container->call($this->prepareCallback($this->callback), array_merge(extractURLData($uri, $this->getPath()), $this->params));
     }
 }

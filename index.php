@@ -16,8 +16,6 @@ $request = Request::createFromGlobals();
 // файл с регистрируемыми маршрутами (роутами)
 require_once $_SERVER['DOCUMENT_ROOT'] . '/routes/web.php';
 
-
-
 $application = new Application($router);
 
 $application->run();
