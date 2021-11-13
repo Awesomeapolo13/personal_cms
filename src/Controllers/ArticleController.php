@@ -5,10 +5,9 @@ namespace App\Controllers;
 use App\Config;
 use App\Controller;
 use App\Models\Article;
-use App\PaginationImplementationInterface;
 use App\Request;
 use App\Service\Pagination;
-use App\View\PaginationView;
+use App\PaginationImplementationInterface;
 use App\View\View;
 
 class ArticleController extends Controller

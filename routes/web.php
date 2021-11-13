@@ -5,6 +5,7 @@ $router->get('/', [App\Controllers\ArticleController::class, 'index']);
 $router->get('/article/*', [App\Controllers\ArticleController::class, 'article']);
 //Авторизация
 $router->get('/login', [App\Controllers\Auth\SecurityController::class, 'login']);
+$router->post('/login', [App\Controllers\Auth\SecurityController::class, 'login']);
 //Регистрация
 $router->get('/register', [App\Controllers\Auth\SecurityController::class, 'register']);
 //Профиль
